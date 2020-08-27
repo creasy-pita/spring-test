@@ -1,6 +1,4 @@
-package com.creasypita.springtest;
-
-import org.springframework.stereotype.Service;
+package com.creasypita.example.spring;
 
 /**
  * Created by creasypita on 8/26/2020.
@@ -11,6 +9,7 @@ import org.springframework.stereotype.Service;
 public class MachineLearningService implements DataModelService {
 
     public boolean isValid(String input) {
+        System.out.println(input);
         return true;
     }
 

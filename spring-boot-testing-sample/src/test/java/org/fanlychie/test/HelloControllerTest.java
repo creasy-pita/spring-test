@@ -5,6 +5,7 @@ import org.fanlychie.service.HelloService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -21,6 +22,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @WebMvcTest(HelloController.class)
 public class HelloControllerTest {
+
+    @SpringBootApplication(scanBasePackages = "org.fanlychie")
+    static class InnerConfig { }
 
     @Autowired
     private MockMvc mvc;

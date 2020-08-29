@@ -1,48 +1,49 @@
 package org.fanlychie.test;
 
-import org.fanlychie.dao.UserRepository;
+import org.fanlychie.dao.UserMapper;
 import org.fanlychie.entity.User;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
+import org.mybatis.spring.annotation.MapperScan;
+import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Created by fanlychie on 2017/6/30.
+ * Created by creasypita on 8/29/2020.
+ *
+ * @ProjectName: spring-test
  */
 @RunWith(SpringRunner.class)
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = Replace.NONE)
+@MybatisTest
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @ActiveProfiles("test")
-public class UserRepositoryMySQLTest {
+
+@MapperScan("org.fanlychie.dao")
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+public class UserMapperMybatisTest {
+
+    @SpringBootApplication(scanBasePackages = "org.fanlychie")
+    static class InnerConfig { }
+
 
     @Autowired
-    private UserRepository userRepository;
+    private UserMapper userMapper;
 
     @Test
     @Rollback(false)
     public void testSave() {
         User user = new User();
         user.setName("fanlychie");
-        userRepository.save(user);
+        userMapper.insertUser(user);
         System.out.println("====================================");
-        System.out.println(userRepository.findAll());
-        System.out.println("====================================");
-    }
-
-    @Test
-    @Transactional(readOnly = true)
-    public void testSelect() {
-        System.out.println("====================================");
-        System.out.println(userRepository.findAll());
+        System.out.println(userMapper.findAllUsers());
         System.out.println("====================================");
     }
-
 }

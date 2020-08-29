@@ -84,3 +84,24 @@ public class HelloControllerTest {
 
 - 测试类根据自定义可以是 mvctest,jpatest,servicetest,beaninjecttest等
 - spring boot的applicat.yml配置可以根据@ActiveProfiles来指定
+
+## 问题
+### :grey_question::grey_question::grey_question:UserMapper不能被spring扫描
+detail：nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'org.fanlychie.mappers.UserMapper' available
+
+`spring-test\spring-boot-testing-sample\src\test\java\org\fanlychie\test\UserMapperMybatisTest.java`中
+@SpringBootApplication(scanBasePackages="org.fanlychie.mappers") 的注解没有能够扫描UserMapper
+必须要
+@MapperScan("org.fanlychie.mappers") 才可以
+
+原因： 还不清楚,可能mybatis spring boot 和 spring boot 版本不对应
+
+### Error creating SqlSessionFactory with faulty mapper class path
+details:
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception; nested exception is org.springframework.core.NestedIOException: Failed to parse mapping resource: 'URL [jar:file:/E:/MavenWareHouse/org/apache/tomcat/embed/tomcat-embed-core/8.5.11/tomcat-embed-core-8.5.11.jar!/org/apache/catalina/mapper/mbeans-descriptors.xml]'; nested exception is org.apache.ibatis.builder.BuilderException: Error creating document instance.  Cause: org.xml.sax.SAXParseException; lineNumber: 18; columnNumber: 21; Document root element "mbeans-descriptors", must match DOCTYPE root "null".
+原因： application.yml中的mybatis配置
+  mapper-locations: classpath:mapper/*.xml
+  mapper-locations: classpath*:**/mapper/*.xml
+
+  第二种不能正确加载mapper xml
+

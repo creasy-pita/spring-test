@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
  *
  * @ProjectName: spring-test
  */
-//@Service("ml")
+@Service("ml")
 public class MachineLearningService implements DataModelService {
 
     public boolean isValid(String input) {

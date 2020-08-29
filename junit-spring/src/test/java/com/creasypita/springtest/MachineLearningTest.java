@@ -16,7 +16,7 @@ import static org.junit.Assert.assertThat;
  *
  * @ProjectName: spring-test
  */
-
+@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfig.class})
 public class MachineLearningTest {
 
@@ -34,5 +34,20 @@ public class MachineLearningTest {
         //assert true
         assertThat(ml.isValid(""), is(true));
 
+    }
+
+    @Test
+    public void test_stackmaxmunsize() {
+        testMethod(0);
+        "11".contains(" ");
+        if("11".contains(" ")){
+            return true;
+        }
+    }
+
+    public void testMethod( int counter) {
+        if(counter>100000) return;
+        System.out.println(counter++);
+        testMethod(counter);
     }
 }

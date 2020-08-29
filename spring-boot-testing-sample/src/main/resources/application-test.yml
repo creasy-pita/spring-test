@@ -3,7 +3,7 @@ spring:
     banner-mode: 'off'
   datasource:
 #      url: jdbc:mysql://127.0.0.1/test
-      url: jdbc:mysql://127.0.0.1/test1?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2b8&allowMultiQueries=true
+      url: jdbc:mysql://127.0.0.1/test?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2b8&allowMultiQueries=true
       username: root
       password: root
       driver-class-name: com.mysql.jdbc.Driver

@@ -37,7 +37,7 @@ public class HelloControllerTest {
 
     @Test
     public void testSayHi() throws Exception {
-        when(helloService.sayHi()).thenReturn("=== Hi ===");
+        when(helloService.sayHi()).thenReturn("mockhelloservice say === Hi ===");
         mvc.perform(get("/hello/sayHi"))
                 .andExpect(status().isOk())
                 .andDo(print());
